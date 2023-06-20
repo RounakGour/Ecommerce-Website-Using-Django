@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static%}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href=" {% static 'css/login.css' %} ">
+  </head>
+  <body>
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        <h2>Login</h2>
+        {% if messages %}
+        {% for message in messages%}
+        <h2 style ="color: red"><span class="badge badge-light">{{message}}</span></h2>
+        {% endfor %}
+        {% endif %}
+        <input type="text" name="username" id="username" placeholder="Username">
+        <input type="password" name="password" id="email" placeholder="Password"> 
+        <button type="submit">Login</button>
+        <p>Don't have an Account?<a href = "{% url 'user_register'%}">Register Here</a></p>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    width: 18rem;
+    margin-right: 10px;
+  }

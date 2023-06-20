@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Invoice</title>
+    <link href="{% static '/css/invoice.css'%}" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+          <td colspan="2">
+            <table>
+              <tr>
+                <td class="title">
+                  <img
+                    src="../{% static 'img/sd.png' %}"
+                    style="width: 100%; max-width: 300px"
+                  />
+                </td>
+
+                <td>
+                  Invoice Id: {{payment_status.order_id}}<br />
+                  Date: {{order.ordered_date}}<br />
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr class="information">
+          <td colspan="2">
+            <table>
+              <tr>
+                <td>
+                  Shopper's Delight<br />
+                  Mumbai, Maharashtra<br />
+                </td>
+
+                <td>
+                  {{order.user.username}}<br />
+                  {{checkout_address.street_address}}
+                  {{checkout_address.apartment_address}}<br />
+                  {{checkout_address.country}} {{checkout_address.zip_code}}<br />
+                  {{payment_status.contact}}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr class="heading">
+          <td>Payment Method</td>
+
+          <td>Check #</td>
+        </tr>
+
+        <tr class="details">
+          <td>{{payment_status.method}}</td>
+
+          <td>{{payment_status.id}}</td>
+        </tr>
+
+        <tr class="heading">
+          <td>Item (Count)</td>
+          <td>Price</td>
+        </tr>
+
+        {% for item in order.items.all%}
+        <tr class="item">
+          <td>{{item.product.name}} ({{item.quantity}})</td>
+          <td>Rs.{{item.get_total_item_price}}</td>
+        </tr>
+        {% endfor %}
+
+        <tr class="total">
+          <td></td>
+
+          <td>Total: Rs. {{order.get_total_price}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="text-align: center"><button>Print</button></div>
+  </body>
+
+  <script>
+    document.querySelector("button").addEventListener("click", function () {
+      window.print();
+    });
+  </script>
+</html>
